@@ -1,0 +1,85 @@
+:root {
+    --font-heading: 'Bebas Neue', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* ===== HEADING ===== */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.sub-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+
+/* ===== CARD TITLE ===== */
+.card-title {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.4;
+}
+
+/* ===== TAGS / BADGES ===== */
+.badge {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+
+.tags {
+    font-family: var(--font-body);
+    font-size: 0.60rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+
+/* ===== META INFO (views, comments, ep count) ===== */
+.meta {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ===== LINK (VIEW ALL) ===== */
+.view-all {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #ff3b3b;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+}
+
+.view-all:hover {
+    color: #ff7070;
+}
+
+.w-layout {
+    width: 60%;
+}
+
+
+
+@media (max-width : 768px) {
+    .w-layout {
+        width: 100%;
+    }
+}

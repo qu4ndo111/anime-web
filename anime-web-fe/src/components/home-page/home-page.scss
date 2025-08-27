@@ -1,0 +1,73 @@
+.trending-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.anime-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+
+    img {
+      filter: brightness(1.1) saturate(1.2);
+      transform: scale(1.05);
+      transition: all 0.3s ease;
+    }
+  }
+  
+  .anime-badge {
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffffcc;
+    width: fit-content;
+    border-radius: 8px;
+    position: absolute;
+    backdrop-filter: blur(6px);
+  }
+
+  .eps {
+    top: 14px;
+    left: 10px;
+  }
+
+  .score {
+    bottom: 14px;
+    left: 10px;
+  }
+
+  .members {
+    bottom: 14px;
+    right: 10px;
+  }
+}
+
+
+
+.tag-badge {
+  border-radius: 50px;
+  border: none;
+  padding: 4px 12px;
+  width: fit-content;
+  background: linear-gradient(135deg, #3a7bd5, #3a6073);
+  color: white;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 8px rgba(58, 123, 213, 0.5);
+  transition: all 0.25s ease;
+  &:hover {
+    background: linear-gradient(135deg, #6EE7B7, #3B82F6);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+}
