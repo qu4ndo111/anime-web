@@ -5,6 +5,7 @@ import api from "../services/api";
 import type { Daum } from "../types/anime.types";
 import type { AnimeJikanList } from "../types/anime-jikan.types";
 import AnimeListSection from "../components/home-page/AnimeListSection";
+import AnimeTopViewsSection from "../components/home-page/AnimeTopViewsSection";
 
 
 
@@ -30,8 +31,7 @@ const HomePage = () => {
   useEffect(() => {
     api.getTopViewsAnime().then((res) => {
       if(!res) return
-      setTopViewsAnime(res.data.data)
-      console.log(res)
+      setTopViewsAnime(res.data)
     })
   }, [])
   
@@ -44,8 +44,8 @@ const HomePage = () => {
             <div className="w-2/3">
               <AnimeListSection title="TRENDING PAGE" animeList={trendingAnime}/>
             </div>
-            <div className="w-[30%]" style={{border: '1px solid white',}}>
-
+            <div className="w-[30%]">
+              <AnimeTopViewsSection title="Top Views" animeList={topViewsAnime} />
             </div>
         </div>
       </div>

@@ -3,13 +3,14 @@ import { Module } from '@nestjs/common';
 // import { redisStore } from 'cache-manager-ioredis-yet';
 import { ConfigModule } from '@nestjs/config';
 import { AnimeModule } from './anime/anime.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    AnimeModule
+    AnimeModule,
     // CacheModule.registerAsync({
     //   isGlobal: true,
     //   useFactory: async () => ({
@@ -18,6 +19,11 @@ import { AnimeModule } from './anime/anime.module';
     //     }),
     //   }),
     // }),
+    CacheModule.register({
+      ttl: 60 * 1000,
+      max: 100,
+      isGlobal: true,
+    }),
   ],
 })
 export class AppModule {}

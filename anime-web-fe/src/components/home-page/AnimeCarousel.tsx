@@ -21,23 +21,33 @@ export default function AnimeCarousel(props: AnimeCarouselProps) {
       <div>
         <button
           ref={prevRef}
-          className="absolute top-1/2 left-2 z-10 transform -translate-y-1/2 bg-white text-black px-3 py-2 rounded-full shadow"
+          className="absolute top-1/2 left-4 z-10 -translate-y-1/2 
+             bg-black/40 hover:bg-black/70 text-white 
+             w-10 h-10 flex items-center justify-center 
+             rounded-full shadow-lg backdrop-blur-sm 
+             transition-transform hover:scale-110"
         >
           ◀
         </button>
+
         <button
           ref={nextRef}
-          className="absolute top-1/2 right-2 z-10 transform -translate-y-1/2 bg-white text-black px-3 py-2 rounded-full shadow"
+          className="absolute top-1/2 right-4 z-10 -translate-y-1/2 
+             bg-black/40 hover:bg-black/70 text-white 
+             w-10 h-10 flex items-center justify-center 
+             rounded-full shadow-lg backdrop-blur-sm 
+             transition-transform hover:scale-110"
         >
           ▶
         </button>
+
       </div>
       <Swiper
         modules={[Navigation, Autoplay]}
         slidesPerView={1}
         slidesPerGroup={1}
         spaceBetween={20}
-        autoplay={{delay: 3000, disableOnInteraction: false}}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={props.seasonAnime?.length > 1}
         navigation={{
           prevEl: prevRef.current,
@@ -58,19 +68,21 @@ export default function AnimeCarousel(props: AnimeCarouselProps) {
       >
         {props.seasonAnime?.map((anime, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-pink-100 dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition hover:scale-105 pt-4">
-              <div className="flex items-center justify-center h-60">
-                <img
-                  src={anime.node.main_picture.large}
-                  alt={anime.node.title}
-                  className="max-h-full w-auto object-contain shadow-2xl"
-                />
-              </div>
-              <div className="p-4 text-center text-pink-800 dark:text-pink-200 font-semibold">
+            <div className="relative group rounded-2xl overflow-hidden shadow-lg">
+              <img
+                src={anime.node.main_picture.large}
+                alt={anime.node.title}
+                className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80"></div>
+
+              <div className="absolute bottom-4 left-4 right-4 text-white font-bold text-lg drop-shadow-md">
                 {anime.node.title}
               </div>
             </div>
           </SwiperSlide>
+
         ))}
       </Swiper>
     </div>
