@@ -2,10 +2,10 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper-bundle.css'
 import { Navigation, Autoplay } from 'swiper/modules'
 import { useRef, useEffect } from 'react'
-import type { Daum } from '../../types/anime.types'
+import type { AnimeJikanList } from '../../types/anime-jikan.types'
 
 interface AnimeCarouselProps {
-  seasonAnime: Daum[]
+  seasonAnime: AnimeJikanList[]
 }
 
 export default function AnimeCarousel(props: AnimeCarouselProps) {
@@ -70,15 +70,15 @@ export default function AnimeCarousel(props: AnimeCarouselProps) {
           <SwiperSlide key={index}>
             <div className="relative group rounded-2xl overflow-hidden shadow-lg">
               <img
-                src={anime.node.main_picture.large}
-                alt={anime.node.title}
+                src={anime.images.webp.large_image_url}
+                alt={anime.title_english}
                 className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80"></div>
 
               <div className="absolute bottom-4 left-4 right-4 text-white font-bold text-lg drop-shadow-md">
-                {anime.node.title}
+                {anime.title_english}
               </div>
             </div>
           </SwiperSlide>

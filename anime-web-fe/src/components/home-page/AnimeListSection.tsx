@@ -24,7 +24,7 @@ export default function AnimeListSection(props: AnimeSectionModel) {
                 VIEW ALL
             </button>
         </div>
-        <div className="mt-5 flex flex-wrap w-full justify-between">
+        <div className="mt-5 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {props.animeList.slice(0, 6).map((item) => (
                 <div key={item.mal_id} style={{ width: '255px' }}>
                     <div className="relative anime-banner" style={{ height: '325px', borderRadius: '12px', maxWidth: '255px' }}>

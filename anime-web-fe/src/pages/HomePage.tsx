@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import AnimeCarousel from "../components/home-page/AnimeCarousel";
-import getCurrentSeason from "../utils/getCurrentSeason";
 import api from "../services/api";
-import type { Daum } from "../types/anime.types";
 import type { AnimeJikanList } from "../types/anime-jikan.types";
 import AnimeListSection from "../components/home-page/AnimeListSection";
 import AnimeTopViewsSection from "../components/home-page/AnimeTopViewsSection";
@@ -10,16 +8,15 @@ import AnimeTopViewsSection from "../components/home-page/AnimeTopViewsSection";
 
 
 const HomePage = () => {
-  const [seasonAnime, setSeasonAnime] = useState<Daum[]>([])
+  const [seasonAnime, setSeasonAnime] = useState<AnimeJikanList[]>([])
   const [trendingAnime, setTrendingAnime] = useState<AnimeJikanList[]>([])
   const [topViewsAnime, setTopViewsAnime] = useState<AnimeJikanList[]>([])
-  const { season, year } = getCurrentSeason()
 
   useEffect(() => {
-    api.getSeasonalAnime(year, season).then((res) => {
-      setSeasonAnime(res.data.data)
+    api.getSeasonalAnime(6).then((res) => {
+      setSeasonAnime(res.data)
     })
-  }, [year, season])
+  }, [])
 
   useEffect(() => {
     api.getTrendingAnime(10).then((res) => {
@@ -38,11 +35,17 @@ const HomePage = () => {
 
   return (
     <div className="flex justify-center w-full pt-10">
-      <div className="w-layout">
+      <div className="w-full px-4 md:px-6 lg:px-8 mx-auto 
+                max-w-screen-sm sm:max-w-screen-md 
+                md:max-w-screen-lg lg:max-w-screen-xl 
+                xl:max-w-[1400px]">
         <AnimeCarousel  seasonAnime={seasonAnime}/>
         <div className="mt-15 flex justify-between flex-wrap">
             <div className="w-2/3">
-              <AnimeListSection title="TRENDING PAGE" animeList={trendingAnime}/>
+              <AnimeListSection title="SEASONAL / NOW AIRING" animeList={seasonAnime}/>
+              <div className="mt-3">
+                <AnimeListSection title="TRENDING PAGE" animeList={trendingAnime}/>
+              </div>
             </div>
             <div className="w-[30%]">
               <AnimeTopViewsSection title="Top Views" animeList={topViewsAnime} />

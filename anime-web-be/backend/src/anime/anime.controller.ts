@@ -7,11 +7,9 @@ export class AnimeController {
 
   @Get('seasonal')
   getSeasonal(
-    @Query('year') year: string,
-    @Query('season') season: string,
     @Query('limit') limit?: number,
   ) {
-    return this.animeService.getSeasonalAnime(year, season, limit);
+    return this.animeService.getSeasonalAnime(limit);
   }
 
   @Get('trending')
@@ -27,4 +25,5 @@ export class AnimeController {
   ) {
     return this.animeService.getTopViewsAnime(filter)
   }
+  
 }
