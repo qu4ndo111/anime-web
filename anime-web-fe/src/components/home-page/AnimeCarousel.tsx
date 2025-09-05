@@ -4,8 +4,11 @@ import { Navigation, Autoplay } from 'swiper/modules'
 import { useRef, useEffect } from 'react'
 import type { AnimeJikanList } from '../../types/anime-jikan.types'
 
+import { Skeleton } from "primereact/skeleton";
+
 interface AnimeCarouselProps {
   seasonAnime: AnimeJikanList[]
+  loading: boolean
 }
 
 export default function AnimeCarousel(props: AnimeCarouselProps) {
@@ -42,49 +45,51 @@ export default function AnimeCarousel(props: AnimeCarouselProps) {
         </button>
 
       </div>
-      <Swiper
-        modules={[Navigation, Autoplay]}
-        slidesPerView={1}
-        slidesPerGroup={1}
-        spaceBetween={20}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        loop={props.seasonAnime?.length > 1}
-        navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        }}
-        centeredSlides={true}
-        breakpoints={{
-          640: { slidesPerView: 1 },
-          1024: { slidesPerView: 1 },
-        }}
-        onBeforeInit={(swiper) => {
-          if (swiper.params.navigation && typeof swiper.params.navigation !== 'boolean') {
-            swiper.params.navigation.prevEl = prevRef.current
-            swiper.params.navigation.nextEl = nextRef.current
-          }
-        }}
-        className="pb-10 w-full"
-      >
-        {props.seasonAnime?.map((anime, index) => (
-          <SwiperSlide key={index}>
-            <div className="relative group rounded-2xl overflow-hidden shadow-lg">
-              <img
-                src={anime.images.webp.large_image_url}
-                alt={anime.title_english}
-                className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+      {props.loading ? <Skeleton width="100%" height="325px" borderRadius="12px" /> :
+        <Swiper
+          modules={[Navigation, Autoplay]}
+          slidesPerView={1}
+          slidesPerGroup={1}
+          spaceBetween={20}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop={props.seasonAnime?.length > 1}
+          navigation={{
+            prevEl: prevRef.current,
+            nextEl: nextRef.current,
+          }}
+          centeredSlides={true}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            1024: { slidesPerView: 1 },
+          }}
+          onBeforeInit={(swiper) => {
+            if (swiper.params.navigation && typeof swiper.params.navigation !== 'boolean') {
+              swiper.params.navigation.prevEl = prevRef.current
+              swiper.params.navigation.nextEl = nextRef.current
+            }
+          }}
+          className="pb-10 w-full"
+        >
+          {props.seasonAnime?.map((anime, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative group rounded-2xl overflow-hidden shadow-lg">
+                <img
+                  src={anime.images.webp.large_image_url}
+                  alt={anime.title_english}
+                  className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80"></div>
 
-              <div className="absolute bottom-4 left-4 right-4 text-white font-bold text-lg drop-shadow-md">
-                {anime.title_english}
+                <div className="absolute bottom-4 left-4 right-4 text-white font-bold text-lg drop-shadow-md">
+                  {anime.title_english}
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
 
-        ))}
-      </Swiper>
+          ))}
+        </Swiper>
+      }
     </div>
   )
 }

@@ -1,9 +1,11 @@
+import { Skeleton } from "primereact/skeleton";
 import type { AnimeJikanList } from "../../types/anime-jikan.types"
 import './home-page.scss'
 
 interface AnimeSectionModel {
     animeList: AnimeJikanList[],
     title: string
+    loading: boolean
 }
 
 export default function AnimeListSection(props: AnimeSectionModel) {
@@ -25,7 +27,9 @@ export default function AnimeListSection(props: AnimeSectionModel) {
             </button>
         </div>
         <div className="mt-5 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {props.animeList.slice(0, 6).map((item) => (
+            {props.loading ? Array.from({ length: 6}).map((_, i) => {
+                return <AnimeCardSkeleton key={i} />
+            }) : props.animeList.slice(0, 6).map((item) => (
                 <div key={item.mal_id} style={{ width: '255px' }}>
                     <div className="relative anime-banner" style={{ height: '325px', borderRadius: '12px', maxWidth: '255px' }}>
                         <img className="w-full h-full object-fill" style={{ borderRadius: '12px' }} src={item.images.jpg.image_url} />
@@ -53,5 +57,19 @@ export default function AnimeListSection(props: AnimeSectionModel) {
             ))}
         </div>
     </div>
-
 }
+
+export const AnimeCardSkeleton = () => {
+  return (
+    <div className="p-3 w-[255px]">
+      <div className="rounded-lg overflow-hidden shadow-md">
+        <Skeleton width="100%" height="325px" borderRadius="12px" />
+        <div className="flex gap-2 mt-3">
+          <Skeleton width="60px" height="20px" borderRadius="8px" />
+          <Skeleton width="40px" height="20px" borderRadius="8px" />
+        </div>
+        <Skeleton width="80%" height="20px" className="mt-3" />
+      </div>
+    </div>
+  );
+};
