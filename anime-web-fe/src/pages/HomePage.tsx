@@ -11,6 +11,7 @@ const HomePage = () => {
   const [topViewsAnime, setTopViewsAnime] = useState<AnimeJikanList[]>([])
   const [loadingSeasonAnime, setLoadingSeasonAnime] = useState<boolean>(false)
   const [loadingTrendingAnime, setLoadingTrendingAnime] = useState<boolean>(false)
+  const [loadingTopViewAnime, setLoadingTopViewAnime] = useState<boolean>(false)
 
   useEffect(() => {
     setLoadingSeasonAnime(true)
@@ -38,16 +39,21 @@ const HomePage = () => {
   }, [])
 
   useEffect(() => {
-    api.getTopViewsAnime().then((res) => {
-      if(!res) return
+    getTopViewsAnime()
+  }, [])
+
+  const getTopViewsAnime = (filter?: 'day' | 'week' | 'month' | 'year') => {
+    setLoadingTopViewAnime(true)
+    api.getTopViewsAnime(filter).then((res) => {
+      if (!res) return
       setTopViewsAnime(res.data)
     }).catch((err) => {
       console.log(err)
     }).finally(() => {
-      setLoadingSeasonAnime(false)
+      setLoadingTopViewAnime(false)
     })
-  }, [])
-  
+  }
+
 
   return (
     <div className="flex justify-center w-full pt-10">
@@ -55,17 +61,17 @@ const HomePage = () => {
                 max-w-screen-sm sm:max-w-screen-md 
                 md:max-w-screen-lg lg:max-w-screen-xl 
                 xl:max-w-[1400px]">
-        <AnimeCarousel  seasonAnime={seasonAnime} loading={loadingSeasonAnime}/>
+        <AnimeCarousel seasonAnime={seasonAnime} loading={loadingSeasonAnime} />
         <div className="mt-15 flex justify-between flex-wrap">
-            <div className="w-2/3">
-              <AnimeListSection title="SEASONAL / NOW AIRING" loading={loadingSeasonAnime} animeList={seasonAnime}/>
-              <div className="mt-3">
-                <AnimeListSection title="TRENDING PAGE" loading={loadingTrendingAnime} animeList={trendingAnime}/>
-              </div>
+          <div className="w-2/3">
+            <AnimeListSection title="SEASONAL / NOW AIRING" loading={loadingSeasonAnime} animeList={seasonAnime} />
+            <div className="mt-3">
+              <AnimeListSection title="TRENDING PAGE" loading={loadingTrendingAnime} animeList={trendingAnime} />
             </div>
-            <div className="w-[30%]">
-              <AnimeTopViewsSection title="Top Views" animeList={topViewsAnime} />
-            </div>
+          </div>
+          <div className="w-[30%]">
+            <AnimeTopViewsSection title="Top Views" animeList={topViewsAnime} loading={loadingTopViewAnime} getTopViewsAnime={getTopViewsAnime} />
+          </div>
         </div>
       </div>
     </div>
